@@ -74,6 +74,7 @@ trait SqlIdiom extends Idiom {
       case a: Ident           => a.token
       case a: ExternalIdent   => a.token
       case a: Property        => a.token
+      case a: NamedContainer  => a.token
       case a: Value           => a.token
       case a: If              => a.token
       case a: External        => a.token
@@ -85,6 +86,10 @@ trait SqlIdiom extends Idiom {
         ) =>
         fail(s"Malformed or unsupported construct: $a.")
     }
+
+  implicit def namedContainerTokenizer(implicit astTokenizer: Tokenizer[Ast], strategy: NamingStrategy): Tokenizer[NamedContainer] = Tokenizer[NamedContainer] {
+    case NamedContainer("substring", values, quat) => stmt"substring(${values(0).token}, ${values(1).token},  ${values(2).token})"
+  }
 
   implicit def ifTokenizer(implicit astTokenizer: Tokenizer[Ast], strategy: NamingStrategy): Tokenizer[If] = Tokenizer[If] {
     case ast: If =>

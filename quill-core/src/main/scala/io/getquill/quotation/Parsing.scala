@@ -767,6 +767,11 @@ trait Parsing extends ValueComputation with QuatMaking {
       val params = firstParamList(c.WeakTypeTag(ccCompanion.tpe.erasure))
       CaseClass(params.zip(values))
     }
+    case q"$str.substring($start, $len)" if is[String](str) =>
+      val strAst = astParser(str)
+      val startAst = astParser(start)
+      val lenAst = astParser(len)
+      NamedContainer("substring", List(strAst, startAst, lenAst), Quat.Value)
   }
 
   private def ifThenSome[T](cond: => Boolean, output: => T): Option[T] =

@@ -446,6 +446,8 @@ case class Tuple(values: List[Ast]) extends Value { def quat = Quat.Tuple(values
 
 case class CaseClass(values: List[(String, Ast)]) extends Value { def quat = Quat.Product(values.map { case (k, v) => (k, v.quat) }) }
 
+case class NamedContainer(name: String, values: List[Ast], quat: Quat) extends Value
+
 //************************************************************
 
 case class Block(statements: List[Ast]) extends Ast { def quat = statements.last.quat } // Note. Assuming Block is not Empty

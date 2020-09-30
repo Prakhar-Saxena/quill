@@ -107,6 +107,7 @@ trait StatelessTransformer {
         val (keys, values) = tuples.unzip
         CaseClass(keys.zip(values.map(apply)))
       }
+      case NamedContainer(name, values, quat) => NamedContainer(name, values.map(apply), quat)
     }
 
   def apply(e: Action): Action =
