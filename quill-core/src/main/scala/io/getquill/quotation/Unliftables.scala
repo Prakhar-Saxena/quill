@@ -188,7 +188,7 @@ trait Unliftables extends QuatUnliftable {
     case q"$pack.Constant.apply(${ Literal(c.universe.Constant(a)) }, ${ quat: Quat })" => Constant(a, quat)
     case q"$pack.Tuple.apply(${ a: List[Ast] })" => Tuple(a)
     case q"$pack.CaseClass.apply(${ values: List[(String, Ast)] })" => CaseClass(values)
-    case q"$pack.NamedContainer.apply("substring", ${values: List[Ast]}, $quat)" => NamedContainer("substring", values, quat)
+    case q"$pack.NamedContainer.apply(${ substring: String }, ${ values: List[Ast] }, ${ quat: Quat })" => NamedContainer(substring, values, quat)
   }
 
   implicit val identUnliftable: Unliftable[Ident] = Unliftable[Ident] {

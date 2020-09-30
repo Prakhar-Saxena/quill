@@ -241,6 +241,9 @@ trait StatefulTransformer[T] {
         val (keys, values) = a.unzip
         val (at, att) = apply(values)(_.apply)
         (CaseClass(keys.zip(at)), att)
+      case NamedContainer(name, values, quat) =>
+        val (valuesT, valuesTT) = apply(values)(_.apply)
+        (NamedContainer(name, valuesT, quat), valuesTT)
     }
 
   def apply(e: Action): (Action, StatefulTransformer[T]) =

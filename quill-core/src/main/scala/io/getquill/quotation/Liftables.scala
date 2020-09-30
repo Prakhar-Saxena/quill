@@ -184,10 +184,10 @@ trait Liftables extends QuatLiftable {
   }
 
   implicit val valueLiftable: Liftable[Value] = Liftable[Value] {
-    case NullValue         => q"$pack.NullValue"
-    case Constant(a, quat) => q"$pack.Constant(${Literal(c.universe.Constant(a))}, $quat)"
-    case Tuple(a)          => q"$pack.Tuple($a)"
-    case CaseClass(a)      => q"$pack.CaseClass($a)"
+    case NullValue                          => q"$pack.NullValue"
+    case Constant(a, quat)                  => q"$pack.Constant(${Literal(c.universe.Constant(a))}, $quat)"
+    case Tuple(a)                           => q"$pack.Tuple($a)"
+    case CaseClass(a)                       => q"$pack.CaseClass($a)"
     case NamedContainer(name, values, quat) => q"$pack.NamedContainer($name, $values, $quat)"
   }
 
